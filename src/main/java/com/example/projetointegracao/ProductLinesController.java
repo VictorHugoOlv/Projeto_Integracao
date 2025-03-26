@@ -29,8 +29,8 @@ public class ProductLinesController {
         selectionComboBox.setOnAction(event -> {
             modelsTitledPane.setDisable(false);
             String selectedLineProducts = selectionComboBox.getValue();
-            Set<CategoryModel> categoryModels = getCategoriesAndModelsForLine(selectedLineProducts);
-            loadTreeViewData(modelsTreeView, categoryModels);
+            Set<ProductCategory> productCategories = getCategoriesAndModelsForLine(selectedLineProducts);
+            loadTreeViewData(modelsTreeView, productCategories);
 
             modelsTitledPane.setExpanded(true);
 
@@ -75,37 +75,37 @@ public class ProductLinesController {
 
 
     // Método para filtrar categorias e modelos de uma linha selecionada e retornar como Set
-    public Set<CategoryModel> getCategoriesAndModelsForLine(String selectedLine) {
-        Set<CategoryModel> categoryModels = new HashSet<>();
+    public Set<ProductCategory> getCategoriesAndModelsForLine(String selectedLine) {
+        Set<ProductCategory> productCategories = new HashSet<>();
 
         // Filtra as categorias e modelos para a linha selecionada
         productLinesList.stream()
                 .filter(p -> p.getLine().equals(selectedLine))  // Filtra pela linha selecionada
                 .forEach(productLine -> {
                     if (!productLine.getCategory().isEmpty() && !productLine.getModel().isEmpty()) {
-                        categoryModels.add(new CategoryModel(productLine.getCategory(), productLine.getModel()));
+                        productCategories.add(new ProductCategory(productLine.getCategory(), productLine.getModel()));
                     }
                 });
 
-        return categoryModels;
+        return productCategories;
     }
 
     // Método para carregar os dados no TreeView
-    public void loadTreeViewData(TreeView<String> treeView, Set<CategoryModel> categoryModels) {
+    public void loadTreeViewData(TreeView<String> treeView, Set<ProductCategory> productCategories) {
 
         // Cria um item raiz para a TreeView
         TreeItem<String> rootItem = new TreeItem<>("Categorias e Modelos");
         rootItem.setExpanded(true);
 
         // Agrupa as categorias
-        Map<String, List<CategoryModel>> categoryMap = categoryModels.stream()
-                .collect(Collectors.groupingBy(CategoryModel::getCategory));
+        Map<String, List<ProductCategory>> categoryMap = productCategories.stream()
+                .collect(Collectors.groupingBy(ProductCategory::getCategory));
 
         // Preenche a TreeView com categorias e modelos
         categoryMap.forEach((category, models) -> {
             TreeItem<String> categoryItem = new TreeItem<>(category);
             models.forEach(model -> {
-                TreeItem<String> modelItem = new TreeItem<>(model.getModel());
+                TreeItem<String> modelItem = new TreeItem<>(model.getProduct());
                 categoryItem.getChildren().add(modelItem);  // Adiciona o modelo à categoria
             });
             rootItem.getChildren().add(categoryItem);  // Adiciona a categoria à raiz

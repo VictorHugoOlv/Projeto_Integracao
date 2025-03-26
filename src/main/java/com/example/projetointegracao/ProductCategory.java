@@ -3,18 +3,18 @@ package com.example.projetointegracao;
 // Classe auxiliar para armazenar Categoria e Modelo
 public class ProductCategory {
     private final String category;
-    private final String model;
+    private final String product;
 
     public ProductCategory(String category, String model) {
         this.category = category;
-        this.model = model;
+        this.product = model;
     }
 
     public String getCategory() {
         return category;
     }
 
-    public String getModel() {
-        return model;
+    public String getProduct() {
+        return product;
     }
 }
