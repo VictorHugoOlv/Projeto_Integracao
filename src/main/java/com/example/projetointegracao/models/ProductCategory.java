@@ -1,6 +1,5 @@
 package com.example.projetointegracao.models;
 
-// Classe auxiliar para armazenar Categoria e Modelo
 public class ProductCategory {
     private final String category;
     private final String product;
