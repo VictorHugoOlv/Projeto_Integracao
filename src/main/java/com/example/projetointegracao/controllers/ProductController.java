@@ -76,13 +76,11 @@ public class ProductController {
     }
 
 
-    // Método para filtrar categorias e modelos de uma linha selecionada e retornar como Set
     public Set<ProductCategory> getCategoriesAndModelsForLine(String selectedLine) {
         Set<ProductCategory> productCategories = new HashSet<>();
 
-        // Filtra as categorias e modelos para a linha selecionada
         productList.stream()
-                .filter(p -> p.getLine().equals(selectedLine))  // Filtra pela linha selecionada
+                .filter(p -> p.getLine().equals(selectedLine))
                 .forEach(productLine -> {
                     if (!productLine.getCategory().isEmpty() && !productLine.getModel().isEmpty()) {
                         productCategories.add(new ProductCategory(productLine.getCategory(), productLine.getModel()));
@@ -92,28 +90,24 @@ public class ProductController {
         return productCategories;
     }
 
-    // Método para carregar os dados no TreeView
     public void loadTreeViewData(TreeView<String> treeView, Set<ProductCategory> productCategories) {
 
-        // Cria um item raiz para a TreeView
         TreeItem<String> rootItem = new TreeItem<>("Categorias e Modelos");
         rootItem.setExpanded(true);
 
-        // Agrupa as categorias
         Map<String, List<ProductCategory>> categoryMap = productCategories.stream()
                 .collect(Collectors.groupingBy(ProductCategory::getCategory));
 
-        // Preenche a TreeView com categorias e modelos
         categoryMap.forEach((category, models) -> {
             TreeItem<String> categoryItem = new TreeItem<>(category);
             models.forEach(model -> {
                 TreeItem<String> modelItem = new TreeItem<>(model.getProduct());
-                categoryItem.getChildren().add(modelItem);  // Adiciona o modelo à categoria
+                categoryItem.getChildren().add(modelItem);
             });
-            rootItem.getChildren().add(categoryItem);  // Adiciona a categoria à raiz
+            rootItem.getChildren().add(categoryItem);
         });
 
-        treeView.setRoot(rootItem);  // Configura a TreeView com a raiz
+        treeView.setRoot(rootItem);
     }
 
 }
