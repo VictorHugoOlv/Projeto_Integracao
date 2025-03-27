@@ -1,14 +1,14 @@
 package com.example.projetointegracao.models;
 
-public class Product {
+public class Line {
     private String line;
     private String category;
     private String model;
 
-    public Product() {
+    public Line() {
     }
 
-    public Product(String line, String category, String model) {
+    public Line(String line, String category, String model) {
         this.line = line;
         this.category = category;
         this.model = model;

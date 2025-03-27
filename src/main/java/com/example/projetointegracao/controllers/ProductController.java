@@ -1,6 +1,6 @@
 package com.example.projetointegracao.controllers;
 
-import com.example.projetointegracao.models.Product;
+import com.example.projetointegracao.models.Line;
 import com.example.projetointegracao.models.ProductCategory;
 import com.example.projetointegracao.models.enums.ProductEnum;
 import javafx.fxml.FXML;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class ProductController {
 
-    private List<Product> productList = ProductEnum.getAllProducts();
+    private List<Line> lineList = ProductEnum.getAllProducts();
 
     @FXML
     private TreeView<String> modelsTreeView;
@@ -41,8 +41,8 @@ public class ProductController {
 
 
     public Set<String> getDistinctLinesSorted() {
-        return productList.stream()
-                .map(Product::getLine)
+        return lineList.stream()
+                .map(Line::getLine)
                 .filter(line -> !line.isEmpty())
                 .sorted()
                 .collect(Collectors.toCollection(LinkedHashSet::new));
@@ -52,11 +52,11 @@ public class ProductController {
     public Set<ProductCategory> getCategoriesAndModelsForLine(String selectedLine) {
         Set<ProductCategory> productCategories = new HashSet<>();
 
-        productList.stream()
+        lineList.stream()
                 .filter(p -> p.getLine().equals(selectedLine))
-                .forEach(productLine -> {
-                    if (!productLine.getCategory().isEmpty() && !productLine.getModel().isEmpty()) {
-                        productCategories.add(new ProductCategory(productLine.getCategory(), productLine.getModel()));
+                .forEach(lineLine -> {
+                    if (!lineLine.getCategory().isEmpty() && !lineLine.getModel().isEmpty()) {
+                        productCategories.add(new ProductCategory(lineLine.getCategory(), lineLine.getModel()));
                     }
                 });
 
