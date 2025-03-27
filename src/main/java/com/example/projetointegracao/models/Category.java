@@ -1,10 +1,10 @@
 package com.example.projetointegracao.models;
 
-public class ProductCategory {
+public class Category {
     private final String category;
     private final String product;
 
-    public ProductCategory(String category, String model) {
+    public Category(String category, String model) {
         this.category = category;
         this.product = model;
     }

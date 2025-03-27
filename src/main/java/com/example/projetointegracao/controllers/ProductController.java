@@ -1,7 +1,7 @@
 package com.example.projetointegracao.controllers;
 
 import com.example.projetointegracao.models.Line;
-import com.example.projetointegracao.models.ProductCategory;
+import com.example.projetointegracao.models.Category;
 import com.example.projetointegracao.models.enums.ProductEnum;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -31,7 +31,7 @@ public class ProductController {
         selectionComboBox.setOnAction(event -> {
             modelsTitledPane.setDisable(false);
             String selectedLineProducts = selectionComboBox.getValue();
-            Set<ProductCategory> productCategories = getCategoriesAndModelsForLine(selectedLineProducts);
+            Set<Category> productCategories = getCategoriesAndModelsForLine(selectedLineProducts);
             loadTreeViewData(modelsTreeView, productCategories);
 
             modelsTitledPane.setExpanded(true);
@@ -49,27 +49,27 @@ public class ProductController {
     }
 
 
-    public Set<ProductCategory> getCategoriesAndModelsForLine(String selectedLine) {
-        Set<ProductCategory> productCategories = new HashSet<>();
+    public Set<Category> getCategoriesAndModelsForLine(String selectedLine) {
+        Set<Category> productCategories = new HashSet<>();
 
         lineList.stream()
                 .filter(p -> p.getLine().equals(selectedLine))
                 .forEach(lineLine -> {
                     if (!lineLine.getCategory().isEmpty() && !lineLine.getModel().isEmpty()) {
-                        productCategories.add(new ProductCategory(lineLine.getCategory(), lineLine.getModel()));
+                        productCategories.add(new Category(lineLine.getCategory(), lineLine.getModel()));
                     }
                 });
 
         return productCategories;
     }
 
-    public void loadTreeViewData(TreeView<String> treeView, Set<ProductCategory> productCategories) {
+    public void loadTreeViewData(TreeView<String> treeView, Set<Category> productCategories) {
 
         TreeItem<String> rootItem = new TreeItem<>("Categorias e Modelos");
         rootItem.setExpanded(true);
 
-        Map<String, List<ProductCategory>> categoryMap = productCategories.stream()
-                .collect(Collectors.groupingBy(ProductCategory::getCategory));
+        Map<String, List<Category>> categoryMap = productCategories.stream()
+                .collect(Collectors.groupingBy(Category::getCategory));
 
         categoryMap.forEach((category, models) -> {
             TreeItem<String> categoryItem = new TreeItem<>(category);
