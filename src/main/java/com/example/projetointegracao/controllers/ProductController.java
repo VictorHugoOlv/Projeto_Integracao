@@ -1,5 +1,7 @@
-package com.example.projetointegracao;
+package com.example.projetointegracao.controllers;
 
+import com.example.projetointegracao.models.Product;
+import com.example.projetointegracao.models.ProductCategory;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 

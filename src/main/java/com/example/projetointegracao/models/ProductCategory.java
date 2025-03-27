@@ -1,4 +1,4 @@
-package com.example.projetointegracao;
+package com.example.projetointegracao.models;
 
 // Classe auxiliar para armazenar Categoria e Modelo
 public class ProductCategory {

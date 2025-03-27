@@ -1,4 +1,4 @@
-package com.example.projetointegracao;
+package com.example.projetointegracao.models;
 
 public class Product {
     private String line;
