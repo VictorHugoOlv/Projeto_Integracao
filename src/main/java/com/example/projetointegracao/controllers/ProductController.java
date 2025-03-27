@@ -2,6 +2,7 @@ package com.example.projetointegracao.controllers;
 
 import com.example.projetointegracao.models.Product;
 import com.example.projetointegracao.models.ProductCategory;
+import com.example.projetointegracao.models.enums.ProductEnum;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 
 public class ProductController {
 
-    private List<Product> productList = new ArrayList<>();
+    private List<Product> productList = ProductEnum.getAllProducts();
 
     @FXML
     private TreeView<String> modelsTreeView;
@@ -25,7 +26,6 @@ public class ProductController {
     @FXML
     public void initialize(){
 
-        loadProductList();
         selectionComboBox.getItems().addAll(getDistinctLinesSorted());
 
         selectionComboBox.setOnAction(event -> {
@@ -39,32 +39,6 @@ public class ProductController {
         });
     }
 
-
-    public List<Product> loadProductList() {
-        productList.add(new Product("Cronos", "CronosOld", "Cronos 6001‑A"));
-        productList.add(new Product("Cronos", "CronosOld", "Cronos 6003"));
-        productList.add(new Product("Cronos", "CronosOld", "Cronos 7023"));
-
-        productList.add(new Product("Cronos", "Cronos L", "Cronos 6021L"));
-        productList.add(new Product("Cronos", "Cronos L", "Cronos 7023L"));
-
-        productList.add(new Product("Cronos", "Cronos‑NG", "Cronos 6001‑NG"));
-        productList.add(new Product("Cronos", "Cronos‑NG", "Cronos 6003‑NG"));
-        productList.add(new Product("Cronos", "Cronos‑NG", "Cronos 6021‑NG"));
-        productList.add(new Product("Cronos", "Cronos‑NG", "Cronos 6031‑NG"));
-        productList.add(new Product("Cronos", "Cronos‑NG", "Cronos 7021‑NG"));
-        productList.add(new Product("Cronos", "Cronos‑NG", "Cronos 7023‑NG"));
-
-        productList.add(new Product("Ares", "Ares TB", "ARES 7021"));
-        productList.add(new Product("Ares", "Ares TB", "ARES 7031"));
-        productList.add(new Product("Ares", "Ares TB", "ARES 7023"));
-
-        productList.add(new Product("Ares", " Ares THS", "ARES 8023 15"));
-        productList.add(new Product("Ares", " Ares THS", "ARES 8023 200"));
-        productList.add(new Product("Ares", " Ares THS", "ARES 8023 2,5"));
-
-        return productList;
-    }
 
     public Set<String> getDistinctLinesSorted() {
         return productList.stream()
