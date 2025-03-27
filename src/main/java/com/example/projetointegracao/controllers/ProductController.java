@@ -44,7 +44,6 @@ public class ProductController {
         return productList.stream()
                 .map(Product::getLine)
                 .filter(line -> !line.isEmpty())
-                .distinct()
                 .sorted()
                 .collect(Collectors.toCollection(LinkedHashSet::new));
     }
