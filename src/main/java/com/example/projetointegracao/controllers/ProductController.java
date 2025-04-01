@@ -11,7 +11,7 @@ import javafx.scene.control.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ViewController {
+public class ProductController {
 
     private List<Product> productList = ProductEnum.getAllProducts();
 
