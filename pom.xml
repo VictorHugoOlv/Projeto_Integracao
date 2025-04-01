@@ -14,6 +14,14 @@
         <junit.version>5.10.2</junit.version>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>ProjIntegracaoBack</groupId>
+            <artifactId>ProjIntegracaoBack</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
     <build>
         <plugins>
             <plugin>
