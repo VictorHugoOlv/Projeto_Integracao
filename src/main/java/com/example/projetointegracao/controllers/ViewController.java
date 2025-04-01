@@ -4,11 +4,6 @@ import org.example.models.Product;
 import org.example.models.enums.ProductEnum;
 import org.example.models.Category;
 
-
-//import com.example.projetointegracao.models.Product;
-//import com.example.projetointegracao.models.Category;
-//import com.example.projetointegracao.models.enums.ProductEnum;
-
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
