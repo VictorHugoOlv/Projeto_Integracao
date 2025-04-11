@@ -38,7 +38,7 @@ public class FrontController {
     private void setComboBoxValue() {
         lineList = lineController.getAllLines();
 
-        selectionComboBox.getItems().addAll(getDistinctLinesSorted());
+        selectionComboBox.getItems().addAll(lineController.getDistinctLinesSorted());
         setTitledPaneEnable();
     }
 
@@ -53,13 +53,13 @@ public class FrontController {
         });
     }
 
-    public Set<String> getDistinctLinesSorted() {
-        return lineList.stream()
-                .map(Line::getLineName)
-                .filter(line -> !line.isEmpty())
-                .sorted()
-                .collect(Collectors.toCollection(LinkedHashSet::new));
-    }
+//    public Set<String> getDistinctLinesSorted() {
+//        return lineList.stream()
+//                .map(Line::getLineName)
+//                .filter(line -> !line.isEmpty())
+//                .sorted()
+//                .collect(Collectors.toCollection(LinkedHashSet::new));
+//    }
 
     public Set<TreeViewDataController> getCategoriesAndProductsForLine(String selectedLine) {
         Set<TreeViewDataController> productCategories = new HashSet<>();
