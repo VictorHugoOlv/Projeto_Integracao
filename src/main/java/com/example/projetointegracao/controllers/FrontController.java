@@ -1,6 +1,5 @@
 package com.example.projetointegracao.controllers;
 
-import javafx.util.StringConverter;
 import org.example.controllers.LineController;
 import org.example.controllers.CategoryController;
 import org.example.controllers.ProductController;
@@ -12,17 +11,13 @@ import org.example.models.Product;
 import org.example.models.Category;
 import org.example.models.Line;
 
-
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class FrontController {
-    EntityManager em = Persistence.createEntityManagerFactory("example").createEntityManager();
-    private LineController lineController;
-    private CategoryController categoryController;
-    private ProductController productController;
+    LineController lineController = new LineController();
+    CategoryController categoryController = new CategoryController();
+    ProductController productController = new ProductController();
 
     private  List<Line> lineList;
 
@@ -34,12 +29,6 @@ public class FrontController {
 
     @FXML
     private ComboBox<String> selectionComboBox;
-
-    public FrontController() {
-        this.lineController = new LineController(em);
-        this.categoryController = new CategoryController(em);
-        this.productController = new ProductController(em);
-    }
 
     @FXML
     public void initialize() {
@@ -58,7 +47,6 @@ public class FrontController {
         });
     }
 
-
     public Set<String> getDistinctLinesSorted() {
         return lineList.stream()
                 .map(Line::getLineName)
@@ -66,7 +54,6 @@ public class FrontController {
                 .sorted()
                 .collect(Collectors.toCollection(LinkedHashSet::new));
     }
-
 
     public Set<TreeViewDataController> getCategoriesAndProductsForLine(String selectedLine) {
         Set<TreeViewDataController> productCategories = new HashSet<>();
@@ -106,6 +93,5 @@ public class FrontController {
 
         treeView.setRoot(rootItem);
     }
-
 }
 
