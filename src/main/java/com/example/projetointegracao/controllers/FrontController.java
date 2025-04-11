@@ -32,10 +32,17 @@ public class FrontController {
 
     @FXML
     public void initialize() {
+        setComboBoxValue();
+    }
+
+    private void setComboBoxValue() {
         lineList = lineController.getAllLines();
 
         selectionComboBox.getItems().addAll(getDistinctLinesSorted());
+        setTitledPaneEnable();
+    }
 
+    private void setTitledPaneEnable() {
         selectionComboBox.setOnAction(event -> {
             modelsTitledPane.setDisable(false);
             String selectedLine = selectionComboBox.getValue();
@@ -43,7 +50,6 @@ public class FrontController {
             loadTreeViewData(modelsTreeView, productCategories);
 
             modelsTitledPane.setExpanded(true);
-
         });
     }
 
