@@ -16,7 +16,7 @@
     <Separator prefWidth="200.0" />
     <TitledPane fx:id="linesTitledPane" text="Linhas">
         <AnchorPane minHeight="0.0" minWidth="0.0">
-            <ComboBox fx:id="selectionComboBox" layoutX="123.0" layoutY="14.0" onAction="#initialize" prefHeight="25.0" prefWidth="112.0" />
+            <ComboBox fx:id="lineComboBox" layoutX="123.0" layoutY="14.0" onAction="#initialize" prefHeight="25.0" prefWidth="170.0" />
             <Text layoutX="14.0" layoutY="31.0" strokeType="OUTSIDE" text="Selecione uma linha" />
          <TitledPane animated="false" layoutX="-23.0" layoutY="-103.0" prefHeight="3.0" prefWidth="0.0" text="untitled">
            <content>
@@ -27,7 +27,7 @@
     </TitledPane>
     <TitledPane fx:id="modelsTitledPane" animated="false" disable="true" expanded="false" text="Modelos">
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-            <TreeView fx:id="modelsTreeView" prefHeight="180.0" prefWidth="160.0" />
+            <TreeView fx:id="categoriesWithProductsTreeView" prefHeight="180.0" prefWidth="200.0" />
         </AnchorPane>
     </TitledPane>
 </VBox>

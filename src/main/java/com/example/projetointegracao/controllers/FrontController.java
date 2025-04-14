@@ -1,103 +1,77 @@
 package com.example.projetointegracao.controllers;
 
-import org.example.controllers.LineController;
+import javafx.collections.FXCollections;
 import org.example.controllers.CategoryController;
-import org.example.controllers.ProductController;
+import org.example.controllers.LineController;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import org.example.models.Product;
 import org.example.models.Category;
 import org.example.models.Line;
+import org.example.models.Product;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class FrontController {
     LineController lineController = new LineController();
     CategoryController categoryController = new CategoryController();
-    ProductController productController = new ProductController();
-
-    private  List<Line> lineList;
 
     @FXML
-    private TreeView<String> modelsTreeView;
+    private TreeView<String> categoriesWithProductsTreeView;
 
     @FXML
     private TitledPane modelsTitledPane;
 
     @FXML
-    private ComboBox<String> selectionComboBox;
+    private ComboBox<Line> lineComboBox;
 
     @FXML
     public void initialize() {
-        setComboBoxValue();
+        setComboBoxLine();
     }
 
-    private void setComboBoxValue() {
-        lineList = lineController.getAllLines();
+    private void setComboBoxLine() {
 
-        selectionComboBox.getItems().addAll(lineController.getDistinctLinesSorted());
-        setTitledPaneEnable();
+        List<Line> lines = lineController.getAllLines();
+
+        lineComboBox.setItems(FXCollections.observableArrayList(lines));
+        lineComboBox.setPromptText("Selecione uma Linha");
+        lineComboBox.setOnAction(event -> onItemSelectedLineCombo());
     }
 
-    private void setTitledPaneEnable() {
-        selectionComboBox.setOnAction(event -> {
-            modelsTitledPane.setDisable(false);
-            String selectedLine = selectionComboBox.getValue();
-            Set<TreeViewDataController> productCategories = getCategoriesAndProductsForLine(selectedLine);
-            loadTreeViewData(modelsTreeView, productCategories);
+    private void onItemSelectedLineCombo() {
 
-            modelsTitledPane.setExpanded(true);
-        });
-    }
+        Line selectedLine = lineComboBox
+                .getSelectionModel()
+                .getSelectedItem();
 
-//    public Set<String> getDistinctLinesSorted() {
-//        return lineList.stream()
-//                .map(Line::getLineName)
-//                .filter(line -> !line.isEmpty())
-//                .sorted()
-//                .collect(Collectors.toCollection(LinkedHashSet::new));
-//    }
-
-    public Set<TreeViewDataController> getCategoriesAndProductsForLine(String selectedLine) {
-        Set<TreeViewDataController> productCategories = new HashSet<>();
-        Optional<Line> selectedLineObj = lineList.stream()
-                .filter(line -> line.getLineName().equals(selectedLine))
-                .findFirst();
-
-        if (selectedLineObj.isPresent()) {
-            List<Category> categories = categoryController.getCategoryBySelectedLine(selectedLineObj.get());
-
-            for (Category category : categories) {
-                List<Product> products = productController.getProductBySelectedCategory(category);
-                for (Product product : products) {
-                    productCategories.add(new TreeViewDataController(category.getCategoryName(), product.getProductName()));
-                }
-            }
+        if (selectedLine != null) {
+            showCategoriesWithProducts(selectedLine);
+            buildCategoryProductTree(categoryController.getCategoriesByLine(selectedLine));
         }
-        return productCategories;
     }
 
-    public void loadTreeViewData(TreeView<String> treeView, Set<TreeViewDataController> productCategories) {
+    private void showCategoriesWithProducts(Line selectedLine) {
+        modelsTitledPane.setDisable(false);
+        modelsTitledPane.setExpanded(true);
+    }
 
-        TreeItem<String> rootItem = new TreeItem<>("Categorias e Modelos");
-        rootItem.setExpanded(true);
+    private void buildCategoryProductTree(List<Category> categories) {
 
-        Map<String, List<TreeViewDataController>> categoryMap = productCategories.stream()
-                .collect(Collectors.groupingBy(TreeViewDataController::getCategoryName));
+        TreeItem<String> root = new TreeItem<>("Categorias com Produtos");
+        root.setExpanded(true);
 
-        categoryMap.forEach((category, models) -> {
-            TreeItem<String> categoryItem = new TreeItem<>(category);
-            models.forEach(model -> {
-                TreeItem<String> modelItem = new TreeItem<>(model.getProductName());
-                categoryItem.getChildren().add(modelItem);
-            });
-            rootItem.getChildren().add(categoryItem);
-        });
+        for (Category category : categories) {
+            TreeItem<String> categoryItem = new TreeItem<>(category.getCategoryName());
 
-        treeView.setRoot(rootItem);
+            for (Product product : category.getProducts()) {
+                categoryItem.getChildren().add(new TreeItem<>(product.getProductName()));
+            }
+
+            root.getChildren().add(categoryItem);
+        }
+
+        categoriesWithProductsTreeView.setRoot(root);
     }
 }
-
