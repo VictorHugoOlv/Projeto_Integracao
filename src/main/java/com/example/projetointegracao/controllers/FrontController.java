@@ -47,12 +47,12 @@ public class FrontController {
                 .getSelectedItem();
 
         if (selectedLine != null) {
-            showCategoriesWithProducts(selectedLine);
+            showCategoriesWithProducts();
             buildCategoryProductTree(categoryController.getCategoriesByLine(selectedLine));
         }
     }
 
-    private void showCategoriesWithProducts(Line selectedLine) {
+    private void showCategoriesWithProducts() {
         modelsTitledPane.setDisable(false);
         modelsTitledPane.setExpanded(true);
     }
