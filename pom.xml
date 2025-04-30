@@ -87,7 +87,7 @@
                             <goal>launch4j</goal>
                         </goals>
                         <configuration>
-                            <jar>C:\repo\repos_clonados\front\target\ProjetoIntegracao-1.0-SNAPSHOT.jar</jar>
+                            <jar>${project.build.directory}/${project.artifactId}-${project.version}.jar</jar>
                             <outfile>${project.build.directory}/${project.build.finalName}.exe</outfile>
                             <dontWrapJar>false</dontWrapJar>
                             <headerType>gui</headerType>
@@ -110,9 +110,10 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>C:\Program Files (x86)\Inno Setup 5\ISCC.exe</executable>
+
+                            <executable>${env.PROGRAMFILES(X86)}/Inno Setup 5/ISCC.exe</executable>
                             <arguments>
-                                <argument>C:\repo\repos_clonados\front\src\main\deploy\ProjIntegracaoInstallerScript.iss</argument>
+                                <argument>${project.basedir}/src/main/deploy/ProjIntegracaoInstallerScript.iss</argument>
                             </arguments>
                         </configuration>
                     </execution>
