@@ -43,6 +43,7 @@
                     <verbose>true</verbose>
                     <appName>ProjetoIntegracao</appName>
                     <bundler>all</bundler>
+                    <needShortcut>true</needShortcut>
                     <bundleArguments>
                         <icon>${project.basedir}/src/main/deploy/package/windows/ProjetoIntegracao.ico</icon>
                     </bundleArguments>
