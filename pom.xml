@@ -44,9 +44,6 @@
                     <appName>ProjetoIntegracao</appName>
                     <bundler>all</bundler>
                     <needShortcut>true</needShortcut>
-                    <bundleArguments>
-                        <deployDir>${project.basedir}/src/main/deploy</deployDir>
-                    </bundleArguments>
                 </configuration>
                 <executions>
                     <execution>
