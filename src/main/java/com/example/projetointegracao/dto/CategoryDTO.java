@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.With;
 import lombok.experimental.Accessors;
 
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -15,4 +17,10 @@ public class CategoryDTO {
     private Long id;
     private String name;
     private Long lineId;
+    private List<ProductDTO> products;
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

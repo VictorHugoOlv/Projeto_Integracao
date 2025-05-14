@@ -1,23 +1,26 @@
 package com.example.projetointegracao.services;
 
 import com.example.projetointegracao.dto.CategoryDTO;
+import com.example.projetointegracao.dto.LineDTO;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 
 public class CategoryService {
-    private MainService mainService;
+    private final WebClient webClient;
 
     public CategoryService() {
-        mainService = new MainService();
+        webClient = new MainService().getWebClient();
     }
 
-    public List<CategoryDTO> getCategoriesByLine(Long id) {
-        return mainService.getWebClient()
-                .get()
-                .uri(uriBuilder -> uriBuilder.path("/categories").queryParam("lineId","{id}").build(id))
+    public List<CategoryDTO> getCategoriesByLine(Long lineId) {
+        return webClient.get()
+                .uri("/categories/{lineId}", lineId)
+                .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .bodyToFlux(CategoryDTO.class)
-                .collectList()
+                .bodyToMono(new ParameterizedTypeReference<List<CategoryDTO>>() {})
                 .block();
     }
 }
