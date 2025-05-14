@@ -9,7 +9,7 @@ import javafx.scene.control.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class ProductController {
+public class Controller {
 
     private List<Product> productList = ProductEnum.getAllProducts();
 
